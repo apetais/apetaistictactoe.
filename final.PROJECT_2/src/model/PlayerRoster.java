@@ -1,54 +1,70 @@
 package model;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import control.GameController;
 
 public class PlayerRoster {
 	private Player[] listOfPlayers;
-	private String[] listOfPlNames;
+	private ArrayList<String> listOfPlNames;
 	private int numOfPls;
+	private int numOfPlsNames;
+	private int i;
 	
-		public void addPls(Player p) {
-			listOfPlayers[numOfPls]=p;
-			numOfPls++;
-		}
-		
-	
+	@SuppressWarnings("unchecked")
 	public PlayerRoster(){
 		this.listOfPlayers = new Player[50];
+		numOfPlsNames = numOfPls;
+
 		this.addPls(new Player("Eleni",null));
-		this.addPls(new Player("Miguel",null));
-		this.addPls(new Player("Panais",null));
+		this.addPls(new Player("Hal",null));
+		this.addPls(new Player("Mr.Bean",null));
 		this.addPls(new Player("Roberto",null));
+		this.addPls(new Player("andreas",null));
+		this.addPls(new Player("marios",null));
+		this.listOfPlNames = new ArrayList<String>();
+        
+		this.listOfPlNames.add(this.listOfPlayers[0].getPlName());
+		this.listOfPlNames.add(this.listOfPlayers[1].getPlName());
+		this.listOfPlNames.add(this.listOfPlayers[2].getPlName());
+		this.listOfPlNames.add(this.listOfPlayers[3].getPlName());
+		this.listOfPlNames.add(this.listOfPlayers[4].getPlName());
+		this.listOfPlNames.add(this.listOfPlayers[5].getPlName());
 		
-		this.listOfPlNames = new String[4];
-		listOfPlNames[0] = this.listOfPlayers[0].getPlName();
-		listOfPlNames[1] = this.listOfPlayers[1].getPlName();
-		listOfPlNames[2] = this.listOfPlayers[2].getPlName();
-		listOfPlNames[3] = this.listOfPlayers[3].getPlName();
-	}
+		//convertFromArrToStr(this.listOfPlNames);
+		//fillPlNameList();
 	
-	/*public void adPlayer(String s) {
-		if(this.findPlayer(s) !=null)
-			
+	}
+	public void addPls(Player p) {
 		listOfPlayers[numOfPls]=p;
 		numOfPls++;
-	}*/
+	}
+	public String[] convertFromArrToStr(ArrayList<String> list) {
+		String[] str = new String[list.size()];
+		 
+        for (int i = 0; i < list.size(); i++) {
+            str[i] = list.get(i);
+        }
+        return str;
+	}
 	
-
-	public String[] getListOfPlNames() {
+	public void fillPlNameList() {
+		for(i = 0; i<this.numOfPls; i++) {
+			this.listOfPlNames.add(this.listOfPlayers[i].getPlName());
+		}
 		
-
-		return listOfPlNames;
 	}
-
-
-	public void setListOfPlNames(String[] listOfPlNames) {
-		this.listOfPlNames = listOfPlNames;
+	
+	public void addPlayerByName(String s) {	
+			this.listOfPlayers[numOfPls] = new Player(s,null);			
+			this.numOfPls++;	
 	}
-
-
-	public void setListOfPlayers(Player[] listOfPlayers) {
-		this.listOfPlayers = listOfPlayers;
+	
+	public void addPlayerName(String s) {
+	listOfPlNames.add(s);
+	this.numOfPls++;
 	}
 	
 	public void findPlayerNames(Player[] list){
@@ -68,7 +84,7 @@ public class PlayerRoster {
 				return pl;
 			}
 		}
-		System.out.println("ERROR PLAYER NOT FOUND");
+		//System.out.println("ERROR PLAYER NOT FOUND");
 		return null;
 	}
 	
@@ -110,7 +126,38 @@ public class PlayerRoster {
 		return listOfPlayers;
 	}
 
+	/*public String[] getListOfPlNames() {
+		
+		return listOfPlNames;
+	}
 
+
+	public void setListOfPlNames(String[] listOfPlNames) {
+		this.listOfPlNames = listOfPlNames;
+	}*/
+
+
+	public void setListOfPlayers(Player[] listOfPlayers) {
+		this.listOfPlayers = listOfPlayers;
+	}
+	public ArrayList getListOfPlNames() {
+		return listOfPlNames;
+	}
+	public void setListOfPlNames(ArrayList listOfPlNames) {
+		this.listOfPlNames = listOfPlNames;
+	}
+	public int getNumOfPlsNames() {
+		return numOfPlsNames;
+	}
+	public void setNumOfPlsNames(int numOfPlsNames) {
+		this.numOfPlsNames = numOfPlsNames;
+	}
+	public int getI() {
+		return i;
+	}
+	public void setI(int i) {
+		this.i = i;
+	}
 
 	
 	

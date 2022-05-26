@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.BoxLayout;
@@ -72,22 +73,24 @@ public class PlayerPanel extends GamePanel {
 	
 	 
 	private void changePlayer() {
-	
+	    
 		//get list of all players
-		String[] allPlayersNames = gc.getModel().getPlayerCatalogue().getListOfPlNames();
-		Arrays.sort(allPlayersNames);
+		ArrayList<String> allPlayersNames = gc.getModel().getPlayerCatalogue().getListOfPlNames();
+		String[] str = gc.getModel().getPlayerCatalogue().convertFromArrToStr(allPlayersNames);
+		//Arrays.sort(allPlayersNames);
 		//show player selection
-		String selPlayer = (String) JOptionPane.showInputDialog(this, "Choose a Player...", "Player Selection", JOptionPane.PLAIN_MESSAGE, null, allPlayersNames, currentPlayerName);
+		String selPlayer = (String) JOptionPane.showInputDialog(this, "Choose a Player...", "Player Selection", JOptionPane.PLAIN_MESSAGE, null, str, currentPlayerName);
 		//set selected player
 		if(selPlayer != null) {
-			if (selPlayer.equals(gc.getModel().getPlayerCatalogue().getListOfPlNames()[pos==0?1:0])) {
-			JOptionPane.showMessageDialog(gc.getView(),"This player has already been selected", "Ooopsss....", JOptionPane.ERROR_MESSAGE);
-			return;
-			}
+			//for(int j = 0 ; j<allPlayersNames.size() ; j++) {
+				if (gc.getModel().getPlayerCatalogue().findPlayer(selPlayer).equals(gc.getModel().getPlayerCatalogue().getListOfPlayers()[pos==0?1:0])) {
+				JOptionPane.showMessageDialog(gc.getView(),"This player has already been selected", "Ooopsss....", JOptionPane.ERROR_MESSAGE);
+				return;
+				}
+			//}
 			
 			this.currentPlayerName = selPlayer; 
 			this.currentPlayer=gc.getModel().getPlayerCatalogue().findPlayer(selPlayer);
-			
 			gc.selectPlayer(currentPlayer,pos);
 			this.plName.setText(selPlayer);
 			this.plStats.setText(gc.getModel().getPlayerStats(currentPlayer));

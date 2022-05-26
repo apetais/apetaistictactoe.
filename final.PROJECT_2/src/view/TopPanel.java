@@ -51,24 +51,21 @@ public TopPanel (GameController gc) {
 	add(addBtn);
 	
 }
-public void askToAddPlayer() {	
+public void askToAddPlayer() {
+	boolean flag = true;
 	Component frame = null;
 	String s = (String)JOptionPane.showInputDialog(frame,"Add player's name:\n" );
-	addPlayer(s);
-}
-
-
-public void addPlayer(String s) {
-	int numOfPls;
-	numOfPls = gc.getModel().getPlayerCatalogue().getNumOfPls();
 	if(gc.getModel().getPlayerCatalogue().findPlayer(s) !=null) {
 		JOptionPane.showMessageDialog(gc.getView(),"This player has already been added", "Ooopsss....", JOptionPane.ERROR_MESSAGE);
+		flag = false;
 	}
-	else {
-		gc.getModel().getPlayerCatalogue().getListOfPlayers()[numOfPls] = new Player(s,null);
-		numOfPls++;
+	if(flag == true) {
+	gc.getModel().getPlayerCatalogue().addPlayerByName(s);
+	gc.getModel().getPlayerCatalogue().addPlayerName(s);
+	System.out.println("The player with the name :" + s + " added succesfully");
 	}
 }
+
 public JButton getAddBtn() {
 	return addBtn;
 }
