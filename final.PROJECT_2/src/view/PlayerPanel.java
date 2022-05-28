@@ -29,8 +29,8 @@ public class PlayerPanel extends GamePanel {
 	JLabel plMark;
 	JTextArea plStats;
 	
-	public PlayerPanel(GameController c, int pos) {
-		super(c);
+	public PlayerPanel(GameController gc, int pos) {
+		super(gc);
 		this.pos=pos;		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setPreferredSize(new Dimension(MainWindow.PLAYER_WIDTH, MainWindow.HEIGHT-MainWindow.TOP_HEIGHT));
@@ -72,6 +72,7 @@ public class PlayerPanel extends GamePanel {
 	
 	
 	 
+	@SuppressWarnings("unlikely-arg-type")
 	private void changePlayer() {
 	    
 		//get list of all players
@@ -82,13 +83,14 @@ public class PlayerPanel extends GamePanel {
 		String selPlayer = (String) JOptionPane.showInputDialog(this, "Choose a Player...", "Player Selection", JOptionPane.PLAIN_MESSAGE, null, str, currentPlayerName);
 		//set selected player
 		if(selPlayer != null) {
-			//for(int j = 0 ; j<allPlayersNames.size() ; j++) {
-				if (gc.getModel().getPlayerCatalogue().findPlayer(selPlayer).equals(gc.getModel().getPlayerCatalogue().getListOfPlayers()[pos==0?1:0])) {
+				if(gc.getModel().getPlayerCatalogue().findPlayer(selPlayer).equals(gc.getModel().getGamePlayers()[pos==0?1:0])) {
 				JOptionPane.showMessageDialog(gc.getView(),"This player has already been selected", "Ooopsss....", JOptionPane.ERROR_MESSAGE);
 				return;
 				}
-			//}
-			
+				if(gc.getModel().getGamePlayers()[0] == gc.getModel().getPlayerCatalogue().findPlayer("Mr.Bean")) {
+					gc.getModel().checkIfBean();
+				}
+						
 			this.currentPlayerName = selPlayer; 
 			this.currentPlayer=gc.getModel().getPlayerCatalogue().findPlayer(selPlayer);
 			gc.selectPlayer(currentPlayer,pos);
@@ -126,4 +128,8 @@ public class PlayerPanel extends GamePanel {
 	public void setPlayerStats(String stats) {
 	this.plStats.setText(stats);
 	}
+	public String getCurrentPlayerName() {
+		return currentPlayerName;
+	}
+	
 }

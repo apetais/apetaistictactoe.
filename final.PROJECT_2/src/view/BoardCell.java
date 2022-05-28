@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
@@ -17,7 +18,9 @@ import model.GameModel;
 public class BoardCell extends GamePanel implements MouseListener {
 	public static final int CELL_PADDING = 10;
 	int row, col;	
+	int count = 0;
 	public boolean highlighted;
+	
 
 	public BoardCell(GameController gc, int row, int col) {
 		super(gc);
@@ -60,6 +63,7 @@ public class BoardCell extends GamePanel implements MouseListener {
 		} else if (mark.equals("X")) {
 			g2d.drawLine(CELL_PADDING, CELL_PADDING, CELL_PADDING + size, CELL_PADDING + size);
 			g2d.drawLine(CELL_PADDING + size, CELL_PADDING, CELL_PADDING, CELL_PADDING + size);
+			
 		} else {
 			g2d.drawOval(CELL_PADDING, CELL_PADDING, size, size);
 		}
@@ -74,7 +78,23 @@ public class BoardCell extends GamePanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("Mouse clicked on cell " + this);
 		if (getModel().inPlay()) {
-			getModel().makeMove(row, col);
+			int res = getModel().makeMove(row, col);
+			if (res != 0) {
+				//System.out.println("RESULT : "+res);
+				//gc.getView().getGp().printWinner(res);
+				if (res == 10) {
+					JOptionPane.showMessageDialog(gc.getView(),"The player X wins", "WINNER", JOptionPane.INFORMATION_MESSAGE);
+					gc.getView().getTopPanel().getDoneBtn().setEnabled(true);
+				}
+				if (res == -10) {
+					JOptionPane.showMessageDialog(gc.getView(),"The player O wins", "WINNER", JOptionPane.INFORMATION_MESSAGE);
+					gc.getView().getTopPanel().getDoneBtn().setEnabled(true);
+				}
+				if (res == -1) {
+					JOptionPane.showMessageDialog(gc.getView(),"No one wins", "DRAW", JOptionPane.INFORMATION_MESSAGE);	
+					gc.getView().getTopPanel().getDoneBtn().setEnabled(true);
+				}
+			}
 			repaint();
 		}
 	}

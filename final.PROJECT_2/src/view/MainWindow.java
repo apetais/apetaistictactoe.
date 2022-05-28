@@ -19,6 +19,7 @@ public class MainWindow extends JFrame{
 	private PlayerPanel rightPnl;
 	private MainAreaPanel mainPnl;
 	private GameController gc;
+	private GamePanel gp;
 	
 	
 	
@@ -85,5 +86,12 @@ public class MainWindow extends JFrame{
 	public static int getPlayerWidth() {
 		return PLAYER_WIDTH;
 	}
+	public GamePanel getGp() {
+		return gp;
+	}
+	public void setGp(GamePanel gp) {
+		this.gp = gp;
+	}
+	
 
 }

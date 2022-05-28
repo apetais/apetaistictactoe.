@@ -2,6 +2,7 @@ package view;
 
 
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import control.GameController;
@@ -14,7 +15,6 @@ public abstract class GamePanel extends JPanel{
 		super();
 		this.gc = gc;
 	}
-	
 	
 	
 	protected GameController getController() {

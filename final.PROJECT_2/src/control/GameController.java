@@ -15,8 +15,7 @@ import view.MainWindow;
 public class GameController extends WindowAdapter {
 	MainWindow view;
 	GameModel model;
-	
-	
+
 	public GameController() {		
 		
 	}
@@ -34,7 +33,13 @@ public class GameController extends WindowAdapter {
 		this.view.addWindowListener(this);
 		this.view.setVisible(true);
 	}
-	
+	public void done() {
+		this.model.setGameBoard(new String[3][3]);
+		this.view= new MainWindow(this);
+		this.model = new GameModel(this);
+		this.view.addWindowListener(this);
+		this.view.setVisible(true);
+	}
 	public void quit() {		
 		System.out.println("bye bye...");		
 		System.exit(0);

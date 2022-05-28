@@ -1,10 +1,8 @@
 package model;
 
-import model.Board.Move;
-
 public class Board {
 	private static char playerX = 'X';
-	private static char playerO = 'Y';
+	private static char playerO = 'O';
 	
 	public Board() { 
 	}
@@ -147,7 +145,21 @@ public class Board {
 	    }	 
 	    return bestMove;
 	}
-		
+	
+	public Move beanMove(char board[][], char w) {
+		int i = 0;
+		int j = 0;
+		do {
+		 i = (int) (Math.random() * (3));
+		 j = (int) (Math.random() * (3));
+		}while( board[i][j] == 'X' || board[i][j] == 'O');
+		board[i][j] = w;
+		Move move = new Move(); 
+		move.row = i;
+		move.col = j;
+		return (move);
+	}
+	
 	}
 	
 

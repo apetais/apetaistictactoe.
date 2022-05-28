@@ -39,6 +39,7 @@ public TopPanel (GameController gc) {
 	doneBtn = new JButton("Done");
 	doneBtn.setPreferredSize(new Dimension(100,40));
 	doneBtn.setEnabled(false);
+	doneBtn.addActionListener((e)->{this.gc.done();});
 	
 	addBtn = new JButton("Add Player");
 	addBtn.setPreferredSize(new Dimension(100,40));
@@ -51,6 +52,7 @@ public TopPanel (GameController gc) {
 	add(addBtn);
 	
 }
+
 public void askToAddPlayer() {
 	boolean flag = true;
 	Component frame = null;
@@ -63,7 +65,23 @@ public void askToAddPlayer() {
 	gc.getModel().getPlayerCatalogue().addPlayerByName(s);
 	gc.getModel().getPlayerCatalogue().addPlayerName(s);
 	System.out.println("The player with the name :" + s + " added succesfully");
+	
 	}
+}
+public Player getPlayer() {
+	return player;
+}
+public void setPlayer(Player player) {
+	this.player = player;
+}
+public void setQuitBtn(JButton quitBtn) {
+	this.quitBtn = quitBtn;
+}
+public void setStartGameBtn(JButton startGameBtn) {
+	this.startGameBtn = startGameBtn;
+}
+public void setDoneBtn(JButton doneBtn) {
+	this.doneBtn = doneBtn;
 }
 
 public JButton getAddBtn() {

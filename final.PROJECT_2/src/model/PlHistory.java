@@ -1,11 +1,13 @@
 package model;
 
+import java.util.ArrayList;
+
 public class PlHistory {
-	int PlGames = 0;
-	int PlWins = 0;
-	int PlLoses = 0;
-	int PlDraws = 0;
-	float PlScore = 0;
+	int PlGames ;
+	int PlWins ;
+	int PlLoses ;
+	int PlDraws ;
+	float PlScore ;
 	private GameRecord[] listOfGamesRec;
 	private GameRecord[] listOfGamesBest;
 	
@@ -77,9 +79,10 @@ public class PlHistory {
 		PlLoses = plLoses;
 	}
 	//calculate score of each player 
-		public float PlScore() { 
+		public void PlScore() {
+			if(getPlGames()!=0)
 			PlScore = 50 * ((2*getPlWins()+getPlDraws())/getPlGames());
-			return PlScore;
+			
 		}
 
 	}

@@ -5,9 +5,7 @@ public class Player {
 	private PlHistory history;
 	private PlayerRoster plRoster;
 	
-	 public PlayerRoster getPlRoster() {
-		return plRoster;
-	}
+	 
 	
 	public Player(String name,PlHistory history) {
 		this.PlName = name;
@@ -35,5 +33,8 @@ public class Player {
 	}
 	public void setHistory(PlHistory history) {
 		this.history = history;
+	}
+	public PlayerRoster getPlRoster() {
+		return plRoster;
 	}
 }

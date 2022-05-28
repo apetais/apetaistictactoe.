@@ -1,29 +1,31 @@
 package model;
 
 import java.util.ArrayList;
-
+import java.util.*;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 import control.GameController;
 
 public class PlayerRoster {
 	private Player[] listOfPlayers;
 	private ArrayList<String> listOfPlNames;
+	private ArrayList<Float> listOfPlScores;
 	private int numOfPls;
-	private int numOfPlsNames;
 	private int i;
 	
-	@SuppressWarnings("unchecked")
-	public PlayerRoster(){
-		this.listOfPlayers = new Player[50];
-		numOfPlsNames = numOfPls;
 
-		this.addPls(new Player("Eleni",null));
-		this.addPls(new Player("Hal",null));
-		this.addPls(new Player("Mr.Bean",null));
-		this.addPls(new Player("Roberto",null));
-		this.addPls(new Player("andreas",null));
-		this.addPls(new Player("marios",null));
+	public PlayerRoster(){
+		
+		this.listOfPlayers = new Player[50];
+
+		this.addPls(new Player("Eleni",new PlHistory(3, 2, 1, 0)));
+		this.addPls(new Player("Hal",new PlHistory(2, 1, 1, 0)));
+		this.addPls(new Player("Mr.Bean",new PlHistory(1, 1, 0, 0)));
+		this.addPls(new Player("Roberto",new PlHistory(3, 2, 1, 0)));
+		this.addPls(new Player("andreas",new PlHistory(4, 2, 2, 0)));
+		this.addPls(new Player("marios",new PlHistory(2, 1, 1, 0)));
+		
 		this.listOfPlNames = new ArrayList<String>();
         
 		this.listOfPlNames.add(this.listOfPlayers[0].getPlName());
@@ -56,6 +58,11 @@ public class PlayerRoster {
 		}
 		
 	}
+	public void fillPlScore() {
+		for(int w = 0 ; w < numOfPls ;w ++) {
+			this.listOfPlScores.add(this.listOfPlayers[w].getHistory().getPlScore());
+		}
+	}
 	
 	public void addPlayerByName(String s) {	
 			this.listOfPlayers[numOfPls] = new Player(s,null);			
@@ -74,9 +81,7 @@ public class PlayerRoster {
 				System.out.println((i+1)+"."+list[i].getPlName());
 				}
 			}
-		
 	}
-
 	
 	public Player findPlayer(String name) {
 		for(Player pl : this.listOfPlayers) {
@@ -86,32 +91,20 @@ public class PlayerRoster {
 		}
 		//System.out.println("ERROR PLAYER NOT FOUND");
 		return null;
+		
 	}
 	
-	public void findHallOfFame(int x) {
-		//SORTING_THE_ARRAY
-	        int n = listOfPlayers.length;  
-	        int temp = 0;  
-	         for(int i=0; i < n; i++){  
-	                 for(int j=1; j < (n-i); j++){  
-	                          if(listOfPlayers[j-1].getHistory().PlWins > listOfPlayers[j].getHistory().PlWins ){  
-	                                 //swap elements  
-	                                 temp = listOfPlayers[j-1].getHistory().PlWins;  
-	                                 listOfPlayers[j-1] = listOfPlayers[j];  
-	                                 listOfPlayers[j].getHistory().PlWins  = temp;  
-	                         }  
-	                          
-	                 }  
-	         }  	  
-	         System.out.println("The best"+" "+x+" "+"players...:");
-				for(int ia=0;ia<5;ia++) {
-					if(listOfPlayers[ia]!=null) {
-						System.out.print(listOfPlayers[ia]);
-					}
-				}
-	}
+		public void findHallOfFame(int x, JTextArea area) {
+			 //Collections.sort(listOfPlScores,Collections.reverseOrder());
+			String a;
+	        StringBuilder sb = new StringBuilder("");	
+	         for(int i = 0; i < x ; i++) { 
+	        sb.append(listOfPlayers[i].getPlName()).append("\n");
+	         }
+	         a = sb.toString();
+	 		area.setText(a);
 
-
+		}
 	public int getNumOfPls() {
 		return numOfPls;
 	}
@@ -121,21 +114,9 @@ public class PlayerRoster {
 		this.numOfPls = numOfPls;
 	}
 
-
 	public Player[] getListOfPlayers() {
 		return listOfPlayers;
 	}
-
-	/*public String[] getListOfPlNames() {
-		
-		return listOfPlNames;
-	}
-
-
-	public void setListOfPlNames(String[] listOfPlNames) {
-		this.listOfPlNames = listOfPlNames;
-	}*/
-
 
 	public void setListOfPlayers(Player[] listOfPlayers) {
 		this.listOfPlayers = listOfPlayers;
@@ -146,12 +127,7 @@ public class PlayerRoster {
 	public void setListOfPlNames(ArrayList listOfPlNames) {
 		this.listOfPlNames = listOfPlNames;
 	}
-	public int getNumOfPlsNames() {
-		return numOfPlsNames;
-	}
-	public void setNumOfPlsNames(int numOfPlsNames) {
-		this.numOfPlsNames = numOfPlsNames;
-	}
+
 	public int getI() {
 		return i;
 	}

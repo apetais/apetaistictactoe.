@@ -2,22 +2,48 @@ package model;
 
 import control.GameController;
 
+
 public class GameModel {
 	PlayerRoster  playerCatalogue;
 	Player [] gamePlayers;
 	String[][] gameBoard;
 	GameController gc;
 	Boolean mover;
+	Board board;
 	
 	
+	public Board getBoard() {
+		return board;
+	}
+
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+
 	public GameModel(GameController gc) {
 		this.gc=gc;
+		board = new Board();
 		gamePlayers = new Player[2];
-		gameBoard= null;
+		gameBoard= new String[3][3];
 		playerCatalogue= new PlayerRoster();
 		mover=false;
 	}
 	
+	public void checkIfBean() {
+			char c [][] = new char[3][3];
+			for (int i = 0 ; i < 3 ; i++) {
+				for(int j = 0 ; j < 3 ; j++) {
+					if (gameBoard[i][j] != null)
+						c[i][j] = gameBoard[i][j].charAt(0);
+				}
+			}
+			
+			gc.getModel().getBoard().beanMove(c, 'X');
+		}
+		
+
 
 	public GameController getGc() {
 		return gc;
@@ -57,10 +83,34 @@ public class GameModel {
 		return gameBoard[row][col];
 	}
 	
-	public void makeMove(int row, int col) {
+	public int makeMove(int row, int col) {
 		checkMoveValidity(row, col);
 		gameBoard[row][col]=getMoverMark();
-		mover=!mover;		
+		mover=!mover;	
+		char b [][] = new char [3][3];
+		for (int i = 0 ; i < 3 ; i++) {
+			for(int j = 0 ; j < 3 ; j++) {
+				if (gameBoard[i][j] != null)
+					b[i][j] = gameBoard[i][j].charAt(0);
+			}
+		}
+		int res = board.checkWinner(b);
+		//System.out.println("result : "+res);
+		if (res == 0) {
+			//elexos an exun simplirothi oles oi thesis t pinaka -> res = -1
+			boolean flag = false;
+			for (int i = 0 ; i < 3 ; i++) {
+				for(int j = 0 ; j < 3 ; j++) {
+					if (gameBoard[i][j] == null)
+						flag = true;
+				}
+			}
+			if (!flag) {
+				res =  -1;
+			}
+			
+		}
+		return(res);
 	}
 	
 	public String getMoverMark() {
